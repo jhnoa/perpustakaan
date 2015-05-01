@@ -71,7 +71,7 @@ void murid::semua()
 	int n = 0;
 	char temp;
 	FILE * siswa; // buffer file
-	char *nama, *gender, *nim, *email, line[79];
+	char *nama, *gender, *nim, *email, line[82];
 	system("cls");
 	siswa = FileOpen("student.txt");
 	cout << "-------------------------------------------------------------------------------" << endl
@@ -80,17 +80,11 @@ void murid::semua()
 	while (!feof(siswa))
 	{
 		line[n] = fgetc(siswa);
-//		cout << (int)line[n]; // << ' '; 
+		
 		if (line[n] == '\n')
 		{	
-			//cout << left << setw(7) << "NIM" << setw(31) << "Nama" << setw(8) << "Gender" << setw(32) << "Email" << endl;
-			//cout << endl;
-//			cout << "triggered!";
-			
 			puts(line);
-//			cout << n;
 			n = 0;
-//			memset(line, '  ', 90);
 		}
 		else 
 		{
