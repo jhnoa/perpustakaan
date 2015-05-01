@@ -1,0 +1,6 @@
+pola:
+student.txt
+nim(6 digit) ' ' nama(30 char) ' ' gender (7 char) ' ' email()
+
+book.txt
+judul(30 char) ' ' pengarang(25 char) ' ' edisi(3 char) ' ' kembali(8 char) ' ' nim peminjam(6 digit)
