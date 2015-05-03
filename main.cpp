@@ -1,6 +1,7 @@
 #include "lib.h"
 #include "murid.h"
 #include "buku.h"
+#include "peminjaman.h"
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
 int main() {
@@ -38,19 +39,13 @@ int main() {
 			
 			case 'P': { // goto class peminjaman.
 				
-				
+				peminjaman pinjam;
 				break;
 			}
 			
 			case 'E': { // exit.
 				
 				exit(1);
-				break;
-			}
-			
-			default:{ // jika masukan salah.
-				
-				
 				break;
 			}
 			

@@ -10,9 +10,7 @@ class murid
 		~murid(); // destructor
 		
 	protected:
-		void semua(); // semua murid
-		void laki();
-		void perempuan();
+		void semua(int); // semua murid
 };
 
 #endif

@@ -1,7 +1,5 @@
 #include "murid.h"
 
-
-
 murid::murid()
 {
 	int x;
@@ -27,19 +25,19 @@ murid::murid()
 			
 			case 'S':{
 				
-				murid::semua();
+				murid::semua(0);
 				break;
 			}
 			
 			case 'L':{
 				
-				murid::laki();
+				murid::semua(1);
 				break;
 			}
 			
 			case 'P':{
 				
-				murid::perempuan();
+				murid::semua(2);
 				break;
 			}
 			
@@ -55,10 +53,14 @@ murid::murid()
 				x = 1;
 				break;
 			}
+			
+			default:{
+				
+			}
 		
 		}
-	
-	}
+
+	}	
 	while (x != 1);
 }
 
@@ -66,12 +68,12 @@ murid::~murid()
 {
 }
 
-void murid::semua()
+void murid::semua(int mode)
 {
 	int n = 0;
 	char temp;
 	FILE * siswa; // buffer file
-	char *nama, *gender, *nim, *email, line[82];
+	char *nama, *gender, *nim, *email, *line;
 	system("cls");
 	siswa = FileOpen("student.txt");
 	cout << "-------------------------------------------------------------------------------" << endl
@@ -79,12 +81,20 @@ void murid::semua()
 		 << "-------------------------------------------------------------------------------" << endl;
 	while (!feof(siswa))
 	{
+		if (n == 0) line = new char[82];
 		line[n] = fgetc(siswa);
 		
 		if (line[n] == '\n')
-		{	
+		{
+			line[n] = '\0';
+			if (mode == 0)	
+			puts(line);
+			if (mode == 1 && line[38] == 'L')
+			puts(line);
+			if (mode == 2 && line[38] == 'P')
 			puts(line);
 			n = 0;
+			delete[] line;
 		}
 		else 
 		{
@@ -96,18 +106,4 @@ void murid::semua()
 	cout << endl
 		 << "Kembali ke Menu Utama? (Tekan B)";
 	while(toupper(getch()) != 'B');
-}
-
-void murid::laki()
-{
-	
-	
-	
-}
-
-void murid::perempuan()
-{
-	
-	
-	
 }

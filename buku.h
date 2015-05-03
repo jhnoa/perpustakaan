@@ -9,10 +9,10 @@ class buku
 		buku();
 		~buku();
 	protected:
-		void semua();
+		void semua(int);
 		void dipinjam();
-		void judul();
-		void pengarang();
+		void print(char *);
+		void kop_tabel();
 };
 
 #endif
