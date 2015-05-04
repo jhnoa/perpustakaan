@@ -16,7 +16,7 @@ murid::murid()
 			 << "Tampilkan Semua Siswa.		(S)" << endl
 			 << "Tampilkan Murid Laki-Laki.	(L)" << endl
 			 << "Tampilkan Murid Perempuan.	(P)" << endl
-			 << "Tambah Murid.				(T)" << endl
+			 << "Tambah Murid.			(T)" << endl
 			 << "Kembali ke Menu Utama.		(B)" << endl
 			 << "Masukan Pilihan." << endl;
 		
