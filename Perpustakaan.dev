@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=0000000000000000001000000
-UnitCount=9
+UnitCount=11
 
 [VersionInfo]
 Major=1
@@ -39,14 +39,14 @@ Build=0
 LanguageID=1033
 CharsetID=1252
 CompanyName=
-FileVersion=
+FileVersion=1.0.0.0
 FileDescription=Developed using the Dev-C++ IDE
 InternalName=
 LegalCopyright=
 LegalTrademarks=
 OriginalFilename=
 ProductName=
-ProductVersion=
+ProductVersion=1.0.0.0
 AutoIncBuildNr=0
 SyncProduct=1
 
@@ -132,6 +132,46 @@ BuildCmd=
 
 [Unit9]
 FileName=peminjaman.cpp
+CompileCpp=1
+Folder=Project1
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit12]
+FileName=t_murid.cpp
+CompileCpp=1
+Folder=Project1
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit13]
+FileName=t_murid.cpp
+CompileCpp=1
+Folder=Project1
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit11]
+FileName=t_murid.cpp
+Folder=Project1
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+CompileCpp=1
+
+[Unit10]
+FileName=t_murid.h
 CompileCpp=1
 Folder=Project1
 Compile=1

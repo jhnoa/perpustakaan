@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = lib.o main.o murid.o buku.o peminjaman.o
-LINKOBJ  = lib.o main.o murid.o buku.o peminjaman.o
+OBJ      = lib.o main.o murid.o buku.o peminjaman.o t_murid.o
+LINKOBJ  = lib.o main.o murid.o buku.o peminjaman.o t_murid.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -g3
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include/c++"
@@ -38,3 +38,6 @@ buku.o: buku.cpp
 
 peminjaman.o: peminjaman.cpp
 	$(CPP) -c peminjaman.cpp -o peminjaman.o $(CXXFLAGS)
+
+t_murid.o: t_murid.cpp
+	$(CPP) -c t_murid.cpp -o t_murid.o $(CXXFLAGS)

@@ -1,4 +1,5 @@
 #include "murid.h"
+#include "t_murid.h"
 
 murid::murid()
 {
@@ -15,7 +16,7 @@ murid::murid()
 			 << "Tampilkan Semua Siswa.		(S)" << endl
 			 << "Tampilkan Murid Laki-Laki.	(L)" << endl
 			 << "Tampilkan Murid Perempuan.	(P)" << endl
-			 << "Tambah Murid.			(T)" << endl
+			 << "Tambah Murid.				(T)" << endl
 			 << "Kembali ke Menu Utama.		(B)" << endl
 			 << "Masukan Pilihan." << endl;
 		
@@ -42,8 +43,10 @@ murid::murid()
 			}
 			
 			case 'T':{
-				
-				
+				//erv
+				//did i do it right?
+				t_murid murid_baru;
+				murid_baru.~t_murid();
 				break;
 			}
 			
