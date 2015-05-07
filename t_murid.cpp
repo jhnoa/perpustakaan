@@ -12,9 +12,9 @@ t_murid::t_murid()
 	// menu tambah murid	
 	cout << "Menu Tambah Murid." << endl
 		 << endl
-		 << "Masukkan Data.				(T)" << endl  //is T okay? from prev menu
+		 << "Masukkan Data.			(T)" << endl  //is T okay? from prev menu
 		 << "Kembali ke Menu Murid.		(B)" << endl  //is B okay?
-		 << "Masukkan pilihan.";
+		 << "Masukkan pilihan." << endl;
 	              
 	
 	
@@ -46,8 +46,8 @@ t_murid::~t_murid()
 //displaying menus for adding (a) new student field
 //this version: successfully insert new field
 //verification:
-//NIM:			 unchecked
-//nama:			 checked	going to add toupper for each initial word..is it needed?
+//NIM:			 checked
+//nama:			 checked (temporarily)
 //jenis kelamin: unchecked
 //email	:		 unchecked
 void t_murid::tambahmurid() {
@@ -60,6 +60,11 @@ void t_murid::tambahmurid() {
 	string s;
 	
 	
+	// clear screen		
+	system("cls");
+
+	
+	// main
 	temp = new char[6];
 	cout << "Masukkan NIM: " << endl;
 	
@@ -225,6 +230,8 @@ void t_murid::tambahmurid() {
 				
 				x=1;
 				cout << "Successfully written." << endl;
+				
+				// after cout, program immediately returns to MENU MURID less than a second.
 				
 			}
 			
