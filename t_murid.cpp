@@ -15,6 +15,7 @@ t_murid::t_murid()
 		 << "Masukkan Data.				(T)" << endl  //is T okay? from prev menu
 		 << "Kembali ke Menu Murid.		(B)" << endl  //is B okay?
 		 << "Masukkan pilihan.";
+	              
 	
 	
 	// copy-pasting
@@ -46,13 +47,13 @@ t_murid::~t_murid()
 //this version: successfully insert new field
 //verification:
 //NIM:			 unchecked
-//nama:			 checked
+//nama:			 checked	going to add toupper for each initial word..is it needed?
 //jenis kelamin: unchecked
 //email	:		 unchecked
 void t_murid::tambahmurid() {
 	
 	//variables
-	char field[47]; //i=0-46 [47]
+	char field[TMSIZE]; //i=0-45 [46]
 	char *temp;
 	int x=0;
 	char c;
@@ -64,28 +65,40 @@ void t_murid::tambahmurid() {
 	
 	
 	//after inputed, nim has to be checked for its uniqueness[unchecked]
-	//AND IT HAS TO BE 6 DIGITS[checked]
-	//invalid 000000[unchecked]
+	//6 DIGITS limitation[checked]
+	//invalid 000000[CHECKED]
+	//integer only [CHECKED]
 	//add to array field
 	
 	//do {
 	
 		do {
 			gets(temp);
-			if(strlen(temp)==6 && temp!="000000") { //000000
+			s = temp;
+			if(strlen(temp)==6 && s!="000000") { //000000
 				
 				x=1;
+				for(int i=0;i<6;i++) {
+					
+					if(!isdigit(temp[i])) x=0;
+					
+				}
+				
+			} else x=0;
+			
+			
+			if(x==1) {
+				
 				for(int i=0;i<=strlen(temp);i++) {
 				
 					if(i==strlen(temp)) field[i] = ' ';
 					else field[i] = temp[i];
 					
-					
 				}
 				
 			}
 			else {
-				x=0;
+				
 				cout << "NIM tidak valid. NIM harus terdiri dari 6 digit angka." << endl;
 				
 			}
@@ -117,7 +130,7 @@ void t_murid::tambahmurid() {
 				else field[i+7] = ' ';
 			
 			}
-			field[38] = ' ';
+			//field[38] = ' ';
 			
 		} 
 		else {
@@ -130,7 +143,7 @@ void t_murid::tambahmurid() {
 		delete[] temp;
 		
 	}while(x!=1);
-	//done. up to field[38]
+	//done. up to field[38] harusnya field[37] karena index mulai dari 0
 	// next!
 	
 	
@@ -143,31 +156,13 @@ void t_murid::tambahmurid() {
 		//c=getchar(); seems like it's also take enter as input data
 		cin >> s;
 		
-		/*
-		if(s[0]=='L' || s[0]=='l') {
-			field[39] = 'L';
-			
-		} 
-		else if(s[0]=='P' || s[0]=='p') {
-			field[39] = 'P';
-			
-		} 
-		else {
-			
-			cout << "error. harap diulang." << endl;
-			x=0;
-			
-			
-		}
-		*/
-		
-		///*
+		//changing the index all!!!
 		switch (s[0]) {
 			case 'L': case 'l':
-				field[39] = 'L';
+				field[38] = 'L';
 				break;
 			case 'P': case 'p':
-				field[39] = 'P';
+				field[38] = 'P';
 				break;
 			default:
 				cout << "error. harap diulang." << endl;
@@ -175,11 +170,10 @@ void t_murid::tambahmurid() {
 				break;
 		
 		}
-		//*/
 	
 	}while(x!=1);
 	
-	for(int i=40;i<=46;i++) {
+	for(int i=39;i<=45;i++) {
 		field[i] = ' ';
 		
 	}
@@ -238,6 +232,7 @@ void t_murid::tambahmurid() {
 		}
 		else if(c=='N') {
 			//let's redirect to previous menu.
+			//how?
 			cout << "Data batal dimasukkan." << endl;
 			break;
 			

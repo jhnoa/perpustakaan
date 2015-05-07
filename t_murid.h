@@ -3,7 +3,7 @@
 
 #include "lib.h"
 
-
+const int TMSIZE = 46;
 
 class t_murid
 {
