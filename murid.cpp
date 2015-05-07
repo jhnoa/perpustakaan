@@ -8,9 +8,11 @@ murid::murid()
 	do {
 		
 		x = 0;
-		
+
+// clear screen		
 		system("cls");
 		
+// menu murid
 		cout << "Menu Murid." << endl
 			 << endl
 			 << "Tampilkan Semua Siswa.		(S)" << endl
@@ -19,8 +21,11 @@ murid::murid()
 			 << "Tambah Murid.			(T)" << endl
 			 << "Kembali ke Menu Utama.		(B)" << endl
 			 << "Masukan Pilihan." << endl;
-		
+
+// kosongkan stdin
 		fflush(stdin);	 
+
+// kondisi masukan
 		switch (toupper(getch()))
 		{
 			
@@ -43,8 +48,7 @@ murid::murid()
 			}
 			
 			case 'T':{
-				//erv
-				//did i do it right?
+				
 				t_murid murid_baru;
 				murid_baru.~t_murid();
 				break;
@@ -73,15 +77,23 @@ murid::~murid()
 
 void murid::semua(int mode)
 {
-	int n = 0;
-	char temp;
-	FILE * siswa; // buffer file
-	char *nama, *gender, *nim, *email, *line;
+// buffer file
+	FILE * siswa; 
+	char *line, temp;
+	int n;
+	
+// clear screen
 	system("cls");
+	
+// buka file
 	siswa = FileOpen("student.txt");
+
+// kop tabel
 	cout << "-------------------------------------------------------------------------------" << endl
 		 << left << setw(7) << "NIM" << setw(31) << "Nama" << setw(8) << "Gender" << setw(32) << "Email" << endl
 		 << "-------------------------------------------------------------------------------" << endl;
+
+// baca file
 	while (!feof(siswa))
 	{
 		if (n == 0) line = new char[82];
@@ -90,12 +102,19 @@ void murid::semua(int mode)
 		if (line[n] == '\n')
 		{
 			line[n] = '\0';
+
+// mode semua
 			if (mode == 0)	
 			puts(line);
+
+// mode hanya laki
 			if (mode == 1 && line[38] == 'L')
 			puts(line);
+
+// mode hanya perempuan
 			if (mode == 2 && line[38] == 'P')
 			puts(line);
+
 			n = 0;
 			delete[] line;
 		}
@@ -105,7 +124,11 @@ void murid::semua(int mode)
 		}
 		
 	}
+
+// tutup file
 	fclose(siswa);
+
+// instruksi kembali
 	cout << endl
 		 << "Kembali ke Menu Utama? (Tekan B)";
 	while(toupper(getch()) != 'B');

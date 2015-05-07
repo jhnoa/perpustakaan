@@ -15,11 +15,14 @@ buku::buku()
 			 << "Tampilkan Buku yang Bisa Dipinjam.        (D)" << endl
 			 << "Tampilkan Buku dengan Judul Tertentu.     (J)" << endl
 			 << "Tampilkan Buku dengan Pengarang Tertentu. (P)" << endl
+			 << "Tambah Buku.				  (T)" << endl
 			 << "Kembali Ke Menu Utama.                    (B)" << endl
 			 << "Masukan Pilihan.";
 
 // kosongkan stdin
 		fflush(stdin);	 
+
+// kondisi masukan
 		switch (toupper(getch()))
 		{
 			
@@ -45,6 +48,11 @@ buku::buku()
 			
 			case 'B':{
 				x = 1;
+				break;
+			}
+			
+			case 'T':{
+				
 				break;
 			}
 		
@@ -125,6 +133,7 @@ void buku::semua(int mode)
 				}
 				if (tr == 1) buku::print(line);
 			}
+			
 // mode pengarang			
 			if (mode == 2)
 			{
@@ -160,7 +169,11 @@ void buku::semua(int mode)
 		}
 		
 	}
+	
+// setelah selesai membaca, tutup file
 	fclose(siswa);
+	
+// instruksi kembali
 	cout << endl
 		 << "Kembali ke Menu Utama? (Tekan B)";
 	while(toupper(getch()) != 'B');

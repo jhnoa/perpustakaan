@@ -19,7 +19,11 @@ peminjaman::peminjaman()
 			 << "Kembali Buku.			(K)" << endl
 			 << "Kembali ke Menu Utama.		(B)" << endl
 			 << "Masukan Pilihan.";
-		
+
+// kosongkan stdin
+		fflush(stdin);
+
+// kondisi masukan
 		switch (toupper(getch()))
 		{	
 			case 'P': {
@@ -60,9 +64,30 @@ peminjaman::~peminjaman()
 {
 }
 
-void peminjaman::welcome()
+void peminjaman::pinjam()
 {
+/*
+	char judul[31], edisi[4];
+	int n;
+// file buffer
+	FILE *murid, *pinjam, *buku;
+	
+// buka file
+	*buku = FileOpen("book.txt");
+	*murid = FileOpen("student.txt");
+	*pinjam = FileOpen("peminjaman.txt");
+	
+//cek judul
+	cout << "Masukan Judul Buku: ";
+	gets(judul);
+	if (strlen(judul) > 30) 
+	{
+		cout << "Judul Terlalu Panjang." << endl;
+		n = 0;
+	}
 	
 	
-	
+	cout << "Masukan Edisi: "
+	gets(edisi);
+*/
 }

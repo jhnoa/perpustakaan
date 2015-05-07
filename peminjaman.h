@@ -7,8 +7,8 @@ class peminjaman
 	public:
 		peminjaman();
 		~peminjaman();
-		void welcome();
 	protected:
+		void pinjam();
 };
 
 #endif
