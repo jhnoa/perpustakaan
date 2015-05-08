@@ -47,9 +47,9 @@ t_murid::~t_murid()
 //this version: successfully insert new field
 //verification:
 //NIM:			 checked
-//nama:			 checked (temporarily)
-//jenis kelamin: unchecked
-//email	:		 unchecked
+//nama:			 checked (must alphabet only?? unchecked)
+//jenis kelamin: checked
+//email	:		 checked (test@io unchecked]
 void t_murid::tambahmurid() {
 	
 	//variables
@@ -75,49 +75,46 @@ void t_murid::tambahmurid() {
 	//integer only [CHECKED]
 	//add to array field
 	
-	//do {
-	
-		do {
-			gets(temp);
-			s = temp;
-			if(strlen(temp)==6 && s!="000000") { //000000
-				
-				x=1;
-				for(int i=0;i<6;i++) {
-					
-					if(!isdigit(temp[i])) x=0;
-					
-				}
-				
-			} else x=0;
+		
+	do {
+		gets(temp);
+		s = temp;
+		if(strlen(temp)==6 && s!="000000") { //000000
+
+			x=1;
+			for(int i=0;i<6;i++) {
 			
-			
-			if(x==1) {
-				
-				for(int i=0;i<=strlen(temp);i++) {
-				
-					if(i==strlen(temp)) field[i] = ' ';
-					else field[i] = temp[i];
-					
-				}
+				if(!isdigit(temp[i])) x=0;
 				
 			}
-			else {
-				
-				cout << "NIM tidak valid. NIM harus terdiri dari 6 digit angka." << endl;
+			
+		} else x=0;
+		
+		
+		if(x==1) {
+			
+			for(int i=0;i<=strlen(temp);i++) {
+			
+				if(i==strlen(temp)) field[i] = ' ';
+				else field[i] = temp[i];
 				
 			}
-		
-		}while(x!=1);
-		
-	//while();
+			
+		}
+		else {
+			
+			cout << "NIM tidak valid. NIM harus terdiri dari 6 digit angka." << endl;
+			
+		}
+	
+	}while(x!=1);
 	
 	
-	//nim and one space is down. delete the temp
 	delete[] temp;
-	//next!
+	//
 	
 	
+	// nama
 	cout << "Masukkan Nama: " << endl;
 	
 	do {
@@ -148,32 +145,40 @@ void t_murid::tambahmurid() {
 		delete[] temp;
 		
 	}while(x!=1);
-	//done. up to field[38] harusnya field[37] karena index mulai dari 0
-	// next!
+	//
 	
 	
-	// well duh, problem.
-	// http://puu.sh/hAcHA/2fc1f4d707.png
-	// status: unfixed
+	// jenis kelamin
+	// only accepts 'L' or 'P' for both upper/lower [CHECKED]
 	do {
+		
+		temp = new char[1];
 		cout << "Masukkan Jenis Kelamin(L/P): " << endl;
 		x=1;
-		//c=getchar(); seems like it's also take enter as input data
-		cin >> s;
+		gets(temp);
 		
-		//changing the index all!!!
-		switch (s[0]) {
-			case 'L': case 'l':
-				field[38] = 'L';
-				break;
-			case 'P': case 'p':
-				field[38] = 'P';
-				break;
-			default:
-				cout << "error. harap diulang." << endl;
-				x=0;
-				break;
-		
+		if(strlen(temp)==1) {
+			
+			switch (temp[0]) {
+				case 'L': case 'l':
+					field[38] = 'L';
+					break;
+				case 'P': case 'p':
+					field[38] = 'P';
+					break;
+				default:
+					cout << "error. harap diulang." << endl;
+					x=0;
+					break;
+			
+			}
+			
+		}
+		else {
+			
+			cout << "error. harap diulang." << endl;
+			x=0;
+			
 		}
 	
 	}while(x!=1);
@@ -182,16 +187,30 @@ void t_murid::tambahmurid() {
 		field[i] = ' ';
 		
 	}
+	//
 
-	//next, email
 	
-	string email;
-	cout << "Masukkan Email: " << endl;
-	cin >> email;
 	
-	//how to check email, btw?
-	//i will return 0 for false, and 1 for true.
-	//make function later!!!!
+	// email
+	// using isemail function to validate
+	do {
+		
+		x=1;
+		cout << "Masukkan Email: " << endl;
+		cin >> email;
+		
+		if(!isemail()) {
+			
+			x=0;
+			cout << "email tidak valid. harap diulang." << endl;
+			
+		}
+		//testing to call function. it works
+		//cout << t_murid::emailchecker() << endl;
+		
+	
+	}while(x!=1);
+	//
 	
 	
 	//displaying field to confirm before applying data
@@ -250,5 +269,85 @@ void t_murid::tambahmurid() {
 		
 	}while(x!=1);
 	
+	
+}
+
+
+int t_murid::isemail() {
+	
+	//check for alphabet
+	//valids only to alphanumerik, underscore, with @domain
+	//maximum length is <64 each
+	
+	//variables
+	//string email; how to convert into array??
+	int length1, length2, length;
+	int domain_begin=0;
+	int bool_dot=0;
+	char temp[email.length()+1]; //good thing is, this works.
+	//delete[] temp; doesnt work. core dumped.
+	//temp = new char[email.length()+1];
+	//WARNING: when am i going to delete[] temp?
+	strcpy(temp,email.c_str());
+	length = strlen(temp);
+	//&temp = email.
+	
+	//cout <<  temp[0] << endl << temp[1];
+	
+	for(int i=0;i<length;i++) {
+		
+		if(temp[i]==' ') return 0;
+		
+		if(!isalnum(temp[i])) {
+			
+			if(temp[i]=='@') {
+				if(domain_begin!=0) return 0; //if there's more @
+				domain_begin=i;
+				length1=i;
+				length2=length-1-i;
+			}
+			
+			//first length conditions
+			if(domain_begin==0) {
+				if(i==0 || i==length-1) return 0; //first and last has to be alphanum
+				if(temp[i]!='_') return 0;
+				if(temp[i]=='_' && temp[i+1]=='_') return 0;
+				
+			
+			} 
+			else { //temp[domain_begin]='@'
+			
+				if(temp[i]=='.') bool_dot = 1;
+				
+				if(!isalnum(temp[domain_begin+1]) || !isalnum(temp[domain_begin-1])) return 0; //12a@12b
+				if(length1>63 || length2>63) return 0;
+				if(temp[i]=='.' && temp[i+1]=='.') return 0;
+				
+				// an exception for test@io [DOESNT WORK T_____T] then make a temporary minimal . domain
+				/* 
+				if(temp[i]=='.') bool_dot = 1;
+					if(i==length-1 && bool_dot==0) {
+						if(length2!=2) return 0;
+						if(temp[length-2]!='i' || temp[length-1]!='o') return 0; 
+						
+					}
+				*/
+				
+				
+				
+				
+			}
+			
+			
+		}
+		
+		if(i==length-1 && domain_begin==0) return 0;	//if there's no @
+		
+		
+	}
+	
+	// condition replacement for test@io
+	if(bool_dot==0) return 0;
+	return 1;
 	
 }

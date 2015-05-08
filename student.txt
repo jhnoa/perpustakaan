@@ -1,6 +1,6 @@
 100210 Johan Siautama                 L       Johansiautama@gmail.com
 100010 Fajar Febrian                  L       Fajar_Master@yahoo.com
 100002 jejeje                         P       dfgh@uiop.com
-100022 siapa aja                       L       siapa_aja@gmail.com
-090909 fghj                            P       dfghj@dfgh.hj
-123333 asdf                            P       adsf.as@fld.df
+100022 siapa aja                      L       siapa_aja@gmail.com
+090909 fghj                           P       dfghj@dfgh.hj
+123333 asdf                           P       adsf.as@fld.df

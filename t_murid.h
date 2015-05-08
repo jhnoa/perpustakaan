@@ -7,12 +7,13 @@ const int TMSIZE = 46;
 
 class t_murid
 {
-	//int TMSIZE = 47;
+	string email;
 	public:
 		t_murid();
 		~t_murid();
 	protected:
 		void tambahmurid(); //kenapa protected??
+		int isemail();
 };
 
 #endif
