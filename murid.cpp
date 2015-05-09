@@ -1,8 +1,9 @@
 #include "murid.h"
-#include "t_murid.h"
+
 
 murid::murid()
 {
+//	tulis_log("Mengakses Menu Murid");
 	int x;
 	
 	do {
