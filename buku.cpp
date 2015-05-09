@@ -52,7 +52,7 @@ buku::buku()
 			}
 			
 			case 'T':{
-				
+				buku::tambah();
 				break;
 			}
 		
@@ -203,4 +203,170 @@ void buku::kop_tabel()
 	cout << "-------------------------------------------------------------------------------" << endl
 		 << left << setw(31) << "Judul" << setw(26) << "Pengarang" << setw(4) << "Ed." << setw(9) << "Kembali" << setw(7) << "Pinjam" << endl
 		 << "-------------------------------------------------------------------------------" << endl;
+}
+
+void buku::tambah()
+{	FILE *fp;
+	fp = fopen("book.txt", "a+");
+	 
+	int x;
+	char *temp, buku[80];
+	
+	do{
+	system("cls");
+		do {
+			temp = new char[30];
+			cout << "Masukan Judul: ";
+			gets(temp);
+			if (strlen(temp) <= 30)
+			{
+				x = 1;
+				cout << endl;
+			}
+			else
+			{
+				x = 0;
+				cout << "error. panjang lebih dari 30. harap diulang";
+				delete[] temp;
+			}
+		} while (x != 1);
+	
+		//cout << temp << endl;
+	
+		for(int i = 0;i<strlen(temp); i++ )
+		{
+			buku[i] = temp[i];
+		}
+		for(int i= strlen(temp); i<30; i++)
+		{
+			buku[i] = ' ';
+		}
+		delete[] temp;
+		buku[30] = ' ';
+		
+		do {
+			temp = new char[25];
+			cout << "Masukan Pengarang: ";
+			gets(temp);
+			if (strlen(temp) <= 25)
+			{
+				x = 1;
+				cout << endl;
+			}
+			else
+			{
+				x = 0;
+				cout << "error. panjang lebih dari 25. harap diulang";
+				delete[] temp;
+			}
+		} while (x != 1);
+		//cout << temp << endl;
+				
+		for(int i = 0; i<strlen(temp); i++ )
+		{
+			buku[i+31] = temp[i];
+		}
+		for(int i= (31+strlen(temp)); i<57; i++)
+		{
+			buku[i] = ' ';
+		}	
+	
+	
+		do {
+			temp = new char[3];
+			cout << "Masukan Edisi: ";
+			gets(temp);
+			if (strlen(temp) <= 3)
+			{
+				x = 1;
+				cout << endl;
+			}
+			else
+			{
+				x = 0;
+				cout << "error. panjang lebih dari 3. harap diulang" << endl;
+				delete[] temp;
+			}
+		} while (x != 1);
+		//cout << temp << endl;
+				
+		for(int i = 0; i<strlen(temp); i++ )
+		{
+			buku[i+57] = temp[i];
+		}
+		for(int i= (57+strlen(temp)); i<61; i++)
+		{
+			buku[i] = ' ';
+		}	
+		
+		do {
+			temp = new char[8];
+			cout << "Masukan Tanggal Kembali (dd/mm/yy): ";
+			gets(temp);
+			if (strlen(temp) <= 8)
+			{
+				if (temp[2] == '/' && temp[5] == '/')
+				{
+					x = 1;
+					cout << endl;
+				}
+				else
+				{
+					x = 0;
+					cout << "error. format tidak sesuai." << endl;
+					delete[] temp;
+				}
+			}
+			else
+			{
+				x = 0;
+				cout << "error. panjang lebih dari 8. harap diulang" << endl;
+				delete[] temp;
+			}
+		} while (x != 1);
+		//cout << temp << endl;
+				
+		for(int i = 0; i<strlen(temp); i++ )
+		{
+			buku[i+61] = temp[i];
+		}
+		for(int i= (61+strlen(temp)); i<70; i++)
+		{
+			buku[i] = ' ';
+		}	
+		
+		do {
+			temp = new char[6];
+			cout << "Masukan NIM: ";
+			gets(temp);
+			if (strlen(temp) <= 6)
+			{
+				x = 1;
+				cout << endl;
+			}
+			else
+			{
+				x = 0;
+				cout << "error. panjang lebih dari 6. Harap diulang." << endl;
+				delete[] temp;
+			}
+		} while (x != 1);
+		//cout << temp << endl;
+				
+		for(int i = 0; i<strlen(temp); i++ )
+		{
+			buku[i+70] = temp[i];
+		}
+		for(int i= (70+strlen(temp)); i<76; i++)
+		{
+			buku[i] = ' ';
+		}	
+		buku[76] = '\n';
+		buku[78] = '\0';
+	}while(x != 1 );
+//	cout << buku;
+	
+//	for (int i = 0; i< strlen(buku); i++)cout << "buku[" << i << "] = " << buku[i] << endl;
+	
+	fputs(buku, fp);
 }

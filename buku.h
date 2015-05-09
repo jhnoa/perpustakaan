@@ -13,6 +13,7 @@ class buku
 		void dipinjam();
 		void print(char *);
 		void kop_tabel();
+		void tambah();
 };
 
 #endif
