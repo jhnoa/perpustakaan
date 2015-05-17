@@ -8,7 +8,10 @@ class peminjaman
 		peminjaman();
 		~peminjaman();
 	protected:
+		int carinim(char *);
+		int cariID(char *);
 		void pinjam();
+		
 };
 
 #endif

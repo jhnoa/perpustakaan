@@ -13,6 +13,8 @@ int main() {
 	do {
 		system("cls");
 		
+		tulis_log("Akses Menu Utama");
+		
 		cout << "Program Perpustakaan v 1.0" << endl
 			 << endl
 			 << "Menu Murid.	  (M)" << endl
@@ -40,6 +42,7 @@ int main() {
 			case 'P': { // goto class peminjaman.
 				
 				peminjaman pinjam;
+				pinjam.~peminjaman();
 				break;
 			}
 			

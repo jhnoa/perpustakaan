@@ -52,7 +52,7 @@ buku::buku()
 			}
 			
 			case 'T':{
-				buku::tambah();
+				buku::t_buku();
 				break;
 			}
 		
@@ -73,7 +73,7 @@ void buku::semua(int mode)
 
 // buffer file
 	FILE * siswa; 
-	char *line, *search;
+	char *line, *search, *show;
 
 // clear screen
 	system("cls");
@@ -93,118 +93,179 @@ void buku::semua(int mode)
 	}
 	
 // kolom tabel
-	buku::kop_tabel();
+	kop_tabel_buku();
 	
 //	buka file
 	siswa = FileOpen("book.txt");
 
-//	baca file	
+//	baca file
 	while (!feof(siswa))
 	{
-		if (n == 0) line = new char[82];
-		line[n] = fgetc(siswa);
-		
-		if (line[n] == '\n')
-		{
-			line[n] = '\0';	
+		tr = 0;
+		line = new char[86];
+		show = new char[86];
+		fgets(line, 100, siswa);
+		strncpy(show,line,76);
+		show[76] = '\n';
+		show[77] = '\0';
 
+//		cout << line << endl;
 // mode semua
-			if (mode == 0)
-			{
-				buku::print(line);
-			}
-			
-// mode judul
-			if (mode == 1)
-			{
-				for (int i = 0; i < (30 - strlen(search)); i++)
-				{
-					for (int j = 0; j < strlen(search); j++)
-					{
-						if (toupper(search[j]) == toupper(line[i+j])) tr = 1;
-						else {
-							tr = 0;
-							break;
-						}
-//						cout << search[i] << " = " << line[i+j] << ' ' << tr << ' ' << i << ' ' << j << endl;
-					}
-//				cout << "triger" << endl;
-					if (tr == 1) break;
-				}
-				if (tr == 1) buku::print(line);
-			}
-			
-// mode pengarang			
-			if (mode == 2)
-			{
-				for (int i = 30; i < (55 - strlen(search)); i++)
-				{
-					for (int j = 0; j < strlen(search); j++)
-					{
-						if (search[j] = line[i+j]) tr = 1;
-						else {
-							tr = 0;
-							break;
-						}
-					}
-					if (tr == 1) break;
-				}
-				if (tr == 1) buku::print(line);
-			}
-			
-// mode yang dapat dipinjam
-			if (mode == 4)
-			{
-				if (line[79] == '*')
-				buku::print(line);
-			}
-						
-// ulangi membaca setelah '\n'
-			n = 0;
-			delete[] line;
-		}
-		else 
+		if (mode == 0)
 		{
-			n++;
+			if (sizeof(siswa) != 0)
+			cout << show;
 		}
 		
+// mode judul
+		if (mode == 1)
+		{
+			for (int i = 0; i < (30 - strlen(search)); i++)
+			{
+				for (int j = 0; j < strlen(search); j++)
+				{
+					if (toupper(search[j]) == toupper(line[i+j])) tr = 1;
+					else {
+						tr = 0;
+						break;
+					}
+//					cout << search[i] << " = " << line[i+j] << ' ' << tr << ' ' << i << ' ' << j << endl;
+				}
+//			cout << "triger" << endl;
+				if (tr == 1) break;
+			}
+			if (tr == 1) cout << show;
+		}
+		
+// mde pengarang			
+		if (mode == 2)
+		{
+			for (int i = 30; i < (55 - strlen(search)); i++)
+			{
+				for (int j = 0; j < strlen(search); j++)
+				{
+					if (toupper(search[j]) == toupper(line[i+j])) tr = 2;
+					else {
+						tr = 0;
+						break;
+					}
+				}
+				if (tr == 2) break;
+			}
+			if (tr == 2) cout << show;
+		}
+		
+// mde yang dapat dipinjam
+		if (mode == 4)
+		{
+			if (line[77] == '*') cout << show;
+		}
+					
+		delete[] line;
+		delete[] show;
 	}
 	
 // setelah selesai membaca, tutup file
 	fclose(siswa);
-	
+	if (mode == 1 || mode == 2)	delete[] search;
 // instruksi kembali
 	cout << endl
 		 << "Kembali ke Menu Utama? (Tekan B)";
 	while(toupper(getch()) != 'B');
-	if (mode == 1 || mode == 2)
-	delete[] search;
-	
 }
 
-void buku::dipinjam()
-{
-	
-	
-	
-}
 
-void buku::print(char * s)
+
+void buku::t_buku()
 {
-	for (int i = 0; i< (strlen(s) - 1); i++)
+	char * judul, * pengarang, * edisi, * buku;
+	FILE * file;
+	
+	int x, num;
+	
+	system("cls");
+	do {
+		cout << "Masukan Judul: ";
+		judul = new char[31];
+		gets (judul);
+		if (strlen(judul) < 31) 
+		{
+			x = 1;
+			cout << endl;
+		}
+		else
+		{
+			cout << "Error. Karakter lebih dari 30." << endl;
+			x = 0;
+			delete[] judul;
+		}
+	} while (x != 1);
+	
+	do {
+		cout << "Masukan Pengarang: ";
+		pengarang = new char[26];
+		gets (pengarang);
+		if (strlen(pengarang) < 26) 
+		{
+			x = 2;
+			cout << endl;
+		}
+		else
+		{
+			cout << "Error. Karakter lebih dari 25." << endl;
+			x = 0;
+			delete[] judul;
+		}
+	} while (x != 2);
+	
+	do {
+		cout << "Masukan Edisi: ";
+		edisi = new char[4];
+		gets (edisi);
+		if (strlen(edisi) < 4) 
+		{
+			x = 3;
+			cout << endl;
+		}
+		else
+		{
+			cout << "Error. Karakter lebih dari 3." << endl;
+			x = 0;
+			delete[] judul;
+		}
+	} while (x != 3);
+	
+	file = FileOpen("book.txt");
+	num = 0;
+	if (sizeof(file) != 0)
 	{
-		cout << s[i];
+		fseek(file, -4, SEEK_END);
+		num += (fgetc(file)-'0') * 1000;
+		num += (fgetc(file)-'0') * 100;
+		num += (fgetc(file)-'0') * 10;
+		num += (fgetc(file)-'0') * 1;
 	}
-	cout << endl;
+	num++;
+	buku = new char[87];
+	
+	if (sizeof(file) != 0)
+	sprintf(buku, "\n%-30s %-25s %-3s --/--/-- 000000 * %04i\0", judul, pengarang, edisi, num);
+	else
+	sprintf(buku, "%-30s %-25s %-3s --/--/-- 000000 * %04i\0", judul, pengarang, edisi, num);
+	
+	fseek(file, 0, SEEK_END);
+	fputs(buku, file);
+	fclose(file);
+	delete[] judul;
+	delete[] pengarang;
+	delete[] edisi;
+	delete[] buku;
+	cout << "Silahkan berikan label bernomorkan " << num << " pada buku yang didaftarkan.";
+	getch();
+	
 }
 
-void buku::kop_tabel()
-{
-	cout << "-------------------------------------------------------------------------------" << endl
-		 << left << setw(31) << "Judul" << setw(26) << "Pengarang" << setw(4) << "Ed." << setw(9) << "Kembali" << setw(7) << "Pinjam" << endl
-		 << "-------------------------------------------------------------------------------" << endl;
-}
-
+/*
 void buku::tambah()
 {	FILE *fp;
 	fp = fopen("book.txt", "a+");
@@ -369,4 +430,6 @@ void buku::tambah()
 //	for (int i = 0; i< strlen(buku); i++)cout << "buku[" << i << "] = " << buku[i] << endl;
 	
 	fputs(buku, fp);
+	fclose(fp);
 }
+*/

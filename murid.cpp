@@ -3,7 +3,7 @@
 
 murid::murid()
 {
-//	tulis_log("Mengakses Menu Murid");
+	tulis_log("Akses Menu Murid");
 	int x;
 	
 	do {
@@ -90,9 +90,7 @@ void murid::semua(int mode)
 	siswa = FileOpen("student.txt");
 
 // kop tabel
-	cout << "-------------------------------------------------------------------------------" << endl
-		 << left << setw(7) << "NIM" << setw(31) << "Nama" << setw(8) << "Gender" << setw(32) << "Email" << endl
-		 << "-------------------------------------------------------------------------------" << endl;
+	kop_tabel_murid(); 
 
 // baca file
 	while (!feof(siswa))

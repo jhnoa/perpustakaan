@@ -10,9 +10,7 @@ class buku
 		~buku();
 	protected:
 		void semua(int);
-		void dipinjam();
-		void print(char *);
-		void kop_tabel();
+		void t_buku();
 		void tambah();
 };
 
