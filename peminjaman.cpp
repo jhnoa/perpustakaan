@@ -149,7 +149,7 @@ void peminjaman::lihat_overdue()
 
 	cout << "	";
 	if (strlen(buku)!=0)
-	cout << "overdue" << " " << "by" << " " << second <<  "days" << endl;
+	cout << second << "Hari"<< endl;
 	delete[] buku;
 	
 	}
