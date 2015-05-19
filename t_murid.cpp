@@ -54,10 +54,11 @@ void t_murid::tambahmurid() {
 	
 	//variables
 	char field[47]; //i=0-45 [46]
-	char *temp;
+	char *temp, * tempnim, * tempdata;
 	int x=0;
 	char c;
 	string s;
+	FILE * ceknim;
 	
 	
 	// clear screen		
@@ -65,8 +66,7 @@ void t_murid::tambahmurid() {
 
 	
 	// main
-	temp = new char[6];
-	cout << "Masukkan NIM: " << endl;
+
 	
 	
 	//after inputed, nim has to be checked for its uniqueness[unchecked]
@@ -78,6 +78,8 @@ void t_murid::tambahmurid() {
 	//do {
 	
 		do {
+			temp = new char[6];
+			cout << "Masukkan NIM: " << endl;
 			gets(temp);
 			s = temp;
 			if(strlen(temp)==6 && s!="000000") { //000000
@@ -94,27 +96,37 @@ void t_murid::tambahmurid() {
 			
 			if(x==1) {
 				
-				for(int i=0;i<=strlen(temp);i++) {
-				
-					if(i==strlen(temp)) field[i] = ' ';
-					else field[i] = temp[i];
+				ceknim = FileOpen("student.txt");
+				while (!feof(ceknim))
+				{
+					tempdata = new char[81];
+					tempnim = new char[7];
+					fgets(tempdata,100,ceknim);
+//					puts(tempdata);
 					
+					if (strncmp(temp, tempdata, 5) == 0)
+					{
+						x = 0;
+						break;
+					}
+					else x = 1;
 				}
-				
+				fclose(ceknim);
+				if (x == 0)	cout << "Nim telah terdaftar." << endl;
 			}
 			else {
 				
 				cout << "NIM tidak valid. NIM harus terdiri dari 6 digit angka." << endl;
 				
 			}
-		
+			delete[] temp;
 		}while(x!=1);
 		
 	//while();
 	
 	
 	//nim and one space is down. delete the temp
-	delete[] temp;
+
 	//next!
 	
 	

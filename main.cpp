@@ -8,7 +8,7 @@ int main() {
 // var	
 	int k;
 	char x = '\0';
-
+//	initialize();
 // main	
 	do {
 		system("cls");

@@ -95,33 +95,22 @@ void murid::semua(int mode)
 // baca file
 	while (!feof(siswa))
 	{
-		if (n == 0) line = new char[82];
-		line[n] = fgetc(siswa);
-		
-		if (line[n] == '\n')
-		{
-			line[n] = '\0';
-
+		line = new char[MAX_MURID];
+		fgets(line, 100, siswa);
+		line[strlen(line) - 1] = '\0';
 // mode semua
-			if (mode == 0)	
+		if (mode == 0)	
 			puts(line);
-
+			
 // mode hanya laki
-			if (mode == 1 && line[38] == 'L')
+		if (mode == 1 && line[38] == 'L')
 			puts(line);
-
-// mode hanya perempuan
-			if (mode == 2 && line[38] == 'P')
-			puts(line);
-
-			n = 0;
-			delete[] line;
-		}
-		else 
-		{
-			n++;
-		}
 		
+// mode hanya perempuan
+		if (mode == 2 && line[38] == 'P')
+			puts(line);
+		
+		delete[] line;
 	}
 
 // tutup file

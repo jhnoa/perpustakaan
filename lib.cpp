@@ -1,5 +1,11 @@
 #include "lib.h"
 
+void initialize()
+{
+	HWND hwnd = GetConsoleWindow();
+	if( hwnd != NULL ){ MoveWindow(hwnd ,0,0,1366,800 ,TRUE); }
+}
+
 FILE * FileOpen (const char *Filename)
 {
 	FILE *le;
@@ -49,7 +55,23 @@ void kop_tabel_murid()
 
 void kop_over()
 {
-	cout << "---------------------------------------------------------------------------" << endl;
-		 << left << setw(31) << "Judul" << "Terlambat" << endl;
+	cout << "---------------------------------------------------------------------------" << endl
+		 << left << setw(31) << "Judul" << "Terlambat" << endl
 		 << "---------------------------------------------------------------------------" << endl;
+}
+
+int auto_numbering()
+{
+	int num = 0;
+	char * data = new char[ID];
+	FILE * file;
+	file = FileOpen("book.txt");
+	fseek (file, -4, SEEK_END);
+	fgets(data, 4, file);
+	num += (data[0] - '0') * 1000;
+	num += (data[1] - '0') * 100;
+	num += (data[2] - '0') * 10;
+	num += (data[3] - '0') * 1;
+	delete[] data;
+	return num;
 }
