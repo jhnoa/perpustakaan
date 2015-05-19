@@ -56,7 +56,7 @@ void kop_tabel_murid()
 void kop_over()
 {
 	cout << "---------------------------------------------------------------------------" << endl
-		 << left << setw(31) << "Judul" << "Terlambat" << endl
+		 << left << setw(32) << "Judul" << setw(13) << "Terlambat" << "Denda"  << endl
 		 << "---------------------------------------------------------------------------" << endl;
 }
 

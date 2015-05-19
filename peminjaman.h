@@ -15,7 +15,7 @@ class peminjaman
 		void kembali();
 		void lihat_overdue();
 		void ganti_data(char *, int, int, char*);
-		int cek_over(char *);
+		int cek_over(char *, int *);
 };
 
 #endif

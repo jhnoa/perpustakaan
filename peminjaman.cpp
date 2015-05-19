@@ -228,11 +228,10 @@ int peminjaman::cariid(char * dat)
 	fclose(file);
 	return tr;
 }
-int peminjaman::cek_over(char * buku)
+int peminjaman::cek_over(char * buku, int * second)
 {
 	time_t now;
 	now = time(NULL);
-	int second;
 	int day = (buku[61]-'0')*10 + (buku[62]-'0');
     int month = ((buku[64]-'0')*10 + (buku[65]-'0'))-1;
 	int year = ((buku[67]-'0')*10 + (buku[68]-'0'))+100;
@@ -242,11 +241,11 @@ int peminjaman::cek_over(char * buku)
 	n.tm_mon = month; 
 	n.tm_year = year;
 	
-	second = difftime(now, mktime(&n))/86400;
+	* second = difftime(now, mktime(&n))/86400;
 	
 	//cout << day << month << year << endl;
 	
-	if(second>21) return 1;
+	if(* second>21) return 1;
 	else return -1;
 }
 void peminjaman::lihat_overdue()
@@ -256,6 +255,7 @@ void peminjaman::lihat_overdue()
    time_t now;
    now = time(NULL);
    int second;
+   int denda;
    //struct tm n = *localtime(&now);    
 	system("cls");
 	kop_over();
@@ -267,7 +267,7 @@ void peminjaman::lihat_overdue()
 //    puts (buku);
     // fclose (pFile);
     if (buku[61] == '-') continue;
-	if(peminjaman::cek_over(buku) == 1)
+	if(peminjaman::cek_over(buku, &second) == 1)
 	{
 		int i = 0;
 		while(i <30)
@@ -275,11 +275,13 @@ void peminjaman::lihat_overdue()
 			cout << buku[i];
 			i++;
 		}
-
-	cout << "	";
-	if (strlen(buku)!=0)
-	cout << second << "Hari"<< endl;
-	delete[] buku;
+		
+		
+		denda = second*3000;
+		cout << "	";
+		if (strlen(buku)!=0)
+		cout << second << setw(10) << " Hari"<< denda <<" Rupiah" << endl;
+		delete[] buku;
 	}
 	}
 	fclose(pFile);
