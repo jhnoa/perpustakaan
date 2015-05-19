@@ -23,4 +23,4 @@ void tulis_log (const char *);
 void kop_tabel_buku();
 void kop_tabel_buku_id();
 void kop_tabel_murid();
-#endif
+endif

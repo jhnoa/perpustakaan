@@ -32,7 +32,7 @@ peminjaman::peminjaman()
 			}
 			
 			case 'O': {
-				
+				peminjaman::lihat_overdue();
 				break;
 			}
 			
@@ -103,6 +103,58 @@ void peminjaman::pinjam()
 		x = peminjaman::cariID(ID);
 	} while (x != 2);
 
+}
+
+void peminjaman::lihat_overdue()
+{
+   FILE * pFile;
+   char * buku;
+   time_t now;
+   now = time(NULL);
+   int second;
+   //struct tm n = *localtime(&now);    
+
+   pFile = fopen ("book.txt" , "r");
+	system("cls");
+    while(!feof(pFile))
+    {
+    buku = new char[86];
+    fgets (buku , 100 , pFile);
+//    puts (buku);
+    // fclose (pFile);
+    if (buku[61] == '-') continue;
+    int day = (buku[61]-'0')*10 + (buku[62]-'0');
+    int month = ((buku[64]-'0')*10 + (buku[65]-'0'))-1;
+	int year = ((buku[67]-'0')*10 + (buku[68]-'0'))+100;
+	
+	struct tm n = *localtime(&now);
+	n.tm_mday = day; 
+	n.tm_mon = month; 
+	n.tm_year = year;
+	
+	second = difftime(now, mktime(&n))/86400;
+	
+	//cout << day << month << year << endl;
+	
+	if(second>21)
+	{
+		int i = 0;
+		while(i <30)
+		{
+			cout << buku[i];
+			i++;
+		}
+		
+	}
+
+	cout << "	";
+	if (strlen(buku)!=0)
+	cout << "overdue" << " " << "by" << " " << second <<  "days" << endl;
+	delete[] buku;
+	
+	}
+	fclose(pFile);
+	getch();
 }
 
 int peminjaman::carinim(char * dat)

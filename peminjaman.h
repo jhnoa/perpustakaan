@@ -11,7 +11,7 @@ class peminjaman
 		int carinim(char *);
 		int cariID(char *);
 		void pinjam();
-		
+		void lihat_overdue();
 };
 
 #endif
