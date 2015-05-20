@@ -1,43 +1,8 @@
 #include "t_murid.h"
 
 t_murid::t_murid()
-{	
-	int x;
-	
-	do{
-		x = 0;
-		
-		// clear screen		
-		system("cls");
-		
-		// menu tambah murid	
-		cout << "Menu Tambah Murid." << endl
-			 << endl
-			 << "Masukkan Data.			(T)" << endl  //is T okay? from prev menu
-			 << "Kembali ke Menu Murid.		(B)" << endl  //is B okay?
-			 << "Masukkan pilihan." << endl;
-		              
-		
-		
-		// copy-pasting
-		// kosongkan stdin
-		fflush(stdin);	 
-		
-		switch (toupper(getch())) {			
-			case 'T':{
-				
-				t_murid::tambahmurid();
-				break;
-			}
-			case 'B':{
-				x = 1;
-				// i dont know what happens here.
-				break;
-			}
-			
-		}
-		
-	}while (x != 1);
+{
+	t_murid::tambahmurid();
 }
 
 
