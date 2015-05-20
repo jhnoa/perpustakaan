@@ -137,9 +137,10 @@ void t_murid::tambahmurid() {
 	
 	//variables
 	char field[46]; //i=0-45 [46]
-	char *temp;
+	char *temp, *data, *nim;
 	int x=0;
 	char c;
+	FILE *student;
 	string s;
 	
 	
@@ -162,7 +163,9 @@ void t_murid::tambahmurid() {
 	do {
 		gets(temp);
 		s = temp;
-		if(strlen(temp)==6 && s!="000000") { //000000
+		if(strlen(temp)==6 && s!="000000") { 
+		
+			//000000
 
 			x=1;
 			for(int i=0;i<6;i++) {
@@ -171,7 +174,41 @@ void t_murid::tambahmurid() {
 				
 			}
 			
+			if(x==1) {
+				// temp[6] is here
+			
+				student = FileOpen("student.txt");
+			
+				while (!feof(student))
+				{
+					data = new char[81];
+					nim = new char[7];
+					
+					fgets(data, 82, student);
+					strncpy(nim, data, 6);
+					
+					nim[6] = '\0';
+					
+					if (strcmp(nim, temp) == 0)
+					{
+						delete[] data;
+						delete[] nim;
+						x=1;
+					} 
+					else 
+					{
+						delete[] data;
+						delete[] nim;
+						x=4;
+						break;
+					}
+				}
+				fclose(student);
+				
+			}
+		
 		} else x=0;
+		
 		
 		
 		if(x==1) {
@@ -184,9 +221,13 @@ void t_murid::tambahmurid() {
 			}
 			
 		}
-		else {
+		else if(x==0){
 			
 			cout << "NIM tidak valid. NIM harus terdiri dari 6 digit angka." << endl;
+			
+		}
+		else if(x==4){
+			cout << "NIM mahasiswa telah terdaftar." << endl;
 			
 		}
 	
@@ -302,7 +343,7 @@ void t_murid::tambahmurid() {
 	
 	do {
 		
-		FILE *student;
+		
 		cout << "apply? (Y/N)" << endl;
 		
 		// char c

@@ -68,7 +68,9 @@ void kop_tabel_buku();
 void kop_tabel_buku_id();
 void kop_tabel_murid();
 void kop_over();
+void kop_tagih_murid();
 int auto_numbering();
 char * spesifik_data(char *, int);
 void convert_student();
+char * pick_data(char *, int, int);
 #endif

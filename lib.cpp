@@ -61,35 +61,35 @@ void kop_over()
 		 << "---------------------------------------------------------------------------" << endl;
 }
 
+void kop_tagih_murid()
+{
+	cout << "---------------------------------------------------------------------------" << endl
+		 << left << setw(31) << "Judul" << setw(10) << "Terlambat" << "Denda" << endl
+		 << "---------------------------------------------------------------------------" << endl;
+}
+
 int auto_numbering()
 {
 	int num = 0;
-	char * data = new char[ID];
 	FILE * file;
 	file = FileOpen("book.txt");
-	fseek (file, -4, SEEK_END);
-	fgets(data, 4, file);
-	num += (data[0] - '0') * 1000;
-	num += (data[1] - '0') * 100;
-	num += (data[2] - '0') * 10;
-	num += (data[3] - '0') * 1;
-	delete[] data;
+	num = (sizeof(file)+2)/85 +1;
 	return num;
 }
 
 char * spesifik_data(char * str, int num)
 {
 	FILE * file;
-	char * data;
+//	char data[];
 	file = FileOpen(str);
 	for (int i = 1; i <= num || !feof(file); i++)
 	{
-		data = new char[MAX_BUKU];
-		fgets(data, 100, file);
-		if(i != num) delete[] data;
+//		data = new char[MAX_BUKU];
+//		fgets(data, 100, file);
+//		if(i != num) delete[] data;
 	}
 	fclose(file);
-	return data;
+//	return data;
 	
 }
 
@@ -226,4 +226,13 @@ void convert_student() {
 	
 	
 	
+}
+char * pick_data(char * data, int start, int stop)
+{
+	char str[stop-start];
+	for (int i = start; i <= stop; i++)
+	{
+		str[i-start] = data[i];
+	}
+	return str;
 }

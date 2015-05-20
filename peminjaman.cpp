@@ -42,7 +42,7 @@ peminjaman::peminjaman()
 			}
 			
 			case 'M': {
-				
+				peminjaman::tagih_mahasiswa();
 				break;
 			}
 			
@@ -350,6 +350,44 @@ void peminjaman::ganti_data(char * namafile, int num, int start, char * str)
 	
 }
 
+void peminjaman::tagih_mahasiswa()
+{
+	int x;
+	FILE * file;
+	int a = 0;
+	char * nim, * data, * tempnim;
+	system("cls");
+	nim = new char[NIM];
+	cout << "Masukan NIM Mahasiswa. ";
+	gets(nim);
+	file = FileOpen("book.txt");
+	kop_tagih_murid();
+	while(!feof(file))
+	{
+		data = new char[MAX_BUKU];
+		fgets(data, 100, file);
+		tempnim = new char[NIM];
+		a = 0;
+		for (int i = 79; i < 84; i++)
+		{
+			tempnim[i-79] = data[i];
+		}
+		x++;
+		if (strcmp(tempnim,nim) == 0)
+		{
+			if (cek_over(data, &a) == 1)
+			{
+				peminjaman::ganti_data("book.txt", x, 61, "--/--/-- 000000 *");
+				cout << "NIM Mahasiswa: " << nim << endl;
+				cout << setw(31) << pick_data(data, 0, 30) << setw(5) << a << " hari " << a*3000 << "rupiah";
+			
+			}
+			
+		}
+		
+	}
+	fclose(file);
+}
 void peminjaman::tagih_buku()
 {
 
@@ -459,4 +497,3 @@ system("cls");
 	}
 	getch();
 }
-

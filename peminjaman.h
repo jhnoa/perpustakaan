@@ -14,10 +14,10 @@ class peminjaman
 		void pinjam();
 		void kembali();
 		void lihat_overdue();
-		void tagih_buku();
 		void ganti_data(char *, int, int, char*);
 		int cek_over(char *, int *);
-		
+		void tagih_mahasiswa();
+		void tagih_buku();		
 };
 
 #endif
