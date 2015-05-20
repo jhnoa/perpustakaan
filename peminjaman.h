@@ -4,7 +4,7 @@
 
 class peminjaman
 {
-	char * str, * str1;
+	char * str, * str1, *buku;
 	public:
 		peminjaman();
 		~peminjaman();
@@ -17,7 +17,8 @@ class peminjaman
 		void ganti_data(char *, int, int, char*);
 		int cek_over(char *, int *);
 		void tagih_mahasiswa();
-		void tagih_buku();		
+		void tagih_buku();
+		void data();		
 };
 
 #endif

@@ -358,41 +358,63 @@ void peminjaman::ganti_data(char * namafile, int num, int start, char * str)
 
 void peminjaman::tagih_mahasiswa()
 {
+	time_t now;
+	now = time(NULL);
 	int x = 0;
 	FILE * file;
 	int a = 0;
-	char * nim, * data, * tempnim;
-	system("cls");
-	nim = new char[NIM];
-	cout << "Masukan NIM Mahasiswa. ";
-	gets(nim);
+	char * nim, * buku, * tempnim;
+	do {
+		system("cls");
+		nim = new char[NIM];
+		cout << "Masukan NIM Mahasiswa. ";
+		gets(nim);
+	} while (carinim(nim) == -1) ;
+	
 	file = FileOpen("book.txt");
+	int size = sizeof(file);
+	fclose(file);
 	kop_tagih_murid();
-	while(!feof(file))
+	for (int z = 0; z <= size; z++)
 	{
-		data = new char[MAX_BUKU];
-		fgets(data, 100, file);
+		file = FileOpen("book.txt");
+		buku = new char[MAX_BUKU];
+		fseek(file, 85*z, SEEK_SET);
+		fgets(buku, 100, file);
 		tempnim = new char[NIM];
+		fclose(file);
 		a = 0;
 		for (int i = 70; i < 76; i++)
 		{
-			tempnim[i-70] = data[i];
+			tempnim[i-70] = buku[i];
 		}
-//		cout << tempnim << ' ' << nim << endl;
+		cout << buku << endl;
+		cout << tempnim << ' ' << nim << endl;
 		x++;
+		
 		if (strcmp(tempnim,nim) == 0)
 		{
+			int day = (buku[61]-'0')*10 + (buku[62]-'0');
+	    	int month = ((buku[64]-'0')*10 + (buku[65]-'0'))-1;
+			int year = ((buku[67]-'0')*10 + (buku[68]-'0'))+100;
+			
+			struct tm n = *localtime(&now);
+			n.tm_mday = day; 
+			n.tm_mon = month; 
+			n.tm_year = year;
+			a = difftime(now, mktime(&n))/86400;
 			
 			peminjaman::ganti_data("book.txt", x, 61, "--/--/-- 000000 *");
 //			cout << "NIM Mahasiswa: " << nim << endl;
-			for(int i = 0; i < 30; i++) cout << data[i];
+			for(int i = 0; i < 30; i++) cout << buku[i];
 			if ((a-21) > 0)	cout << ' ' << setw(5) << a << " hari " << (a-21)*3000 << "rupiah" << endl;
+			
 			else cout << ' ' << setw(5) << a << " hari " << "0" << " rupiah" << endl;
 		}
 		
 	}
 	getch();
-	fclose(file);
+	delete[] nim;
 }
 void peminjaman::tagih_buku()
 {
