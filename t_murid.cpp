@@ -176,15 +176,9 @@ void t_murid::tambahmurid() {
 		
 		
 		
-		if(x==1) {
+		if(x==4) {
 			
-			for(int i=0;i<=strlen(temp);i++) {
-			
-				if(i==strlen(temp)) field[i] = ' ';
-				else field[i] = temp[i];
-				
-			}
-			
+			sprintf(field, "%-6s ", temp);			
 		}
 		else if(x==0){
 			
@@ -196,7 +190,7 @@ void t_murid::tambahmurid() {
 			
 		}
 	
-	}while(x!=1);
+	}while(x!=4);
 	
 	
 	delete[] temp;
@@ -316,7 +310,7 @@ void t_murid::tambahmurid() {
 		//c=getchar();
 		cin >> c;
 		
-		if(c=='Y') {
+		if(toupper(c)=='Y') {
 			//this menu adds a new field, so file mode is "a"
 			student = fopen("student.txt","a");
 			

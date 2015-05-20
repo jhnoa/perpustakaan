@@ -380,11 +380,8 @@ void peminjaman::tagih_mahasiswa()
 			peminjaman::ganti_data("book.txt", x, 61, "--/--/-- 000000 *");
 			cout << "NIM Mahasiswa: " << nim << endl;
 			for(int i = 0; i < 30; i++) cout << data[i];
-			if (cek_over(data, &a) == 1)
-			{
-				cout << ' ' << setw(5) << a - 21 << " hari " << (a-21)*3000 << "rupiah";
-			}
-			
+			if ((a-21) > 0)	cout << ' ' << setw(5) << a << " hari " << (a-21)*3000 << "rupiah";
+			else cout << ' ' << setw(5) << a << " hari " << "0" << "rupiah";
 		}
 		
 	}
