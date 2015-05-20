@@ -1,17 +1,18 @@
 #include "lib.h"
 
-void initialize()
-{
-	HWND hwnd = GetConsoleWindow();
-	if( hwnd != NULL ){ MoveWindow(hwnd ,0,0,1366,800 ,TRUE); }
-}
-
 FILE * FileOpen (const char *Filename)
 {
 	FILE *le;
-	le=fopen (Filename, "a+");
-	if (!le)
-	le = fopen (Filename, "w+");
+	
+	if (!(le=fopen (Filename, "a+")))
+	{
+		le = fopen (Filename, "w+");
+	}
+	else
+	{
+		cout << "File " << Filename << " dibuka." << endl;
+	}
+	
 	fseek(le,0,SEEK_SET);
 	return le;
 }
@@ -56,7 +57,7 @@ void kop_tabel_murid()
 void kop_over()
 {
 	cout << "---------------------------------------------------------------------------" << endl
-		 << left << setw(32) << "Judul" << setw(13) << "Terlambat" << "Denda"  << endl
+		 << left << setw(31) << "Judul" << "Terlambat" << endl
 		 << "---------------------------------------------------------------------------" << endl;
 }
 
@@ -74,4 +75,20 @@ int auto_numbering()
 	num += (data[3] - '0') * 1;
 	delete[] data;
 	return num;
+}
+
+char * spesifik_data(char * str, int num)
+{
+	FILE * file;
+	char * data;
+	file = FileOpen(str);
+	for (int i = 1; i <= num || !feof(file); i++)
+	{
+		data = new char[MAX_BUKU];
+		fgets(data, 100, file);
+		if(i != num) delete[] data;
+	}
+	fclose(file);
+	return data;
+	
 }

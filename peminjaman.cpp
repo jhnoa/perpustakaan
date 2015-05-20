@@ -42,12 +42,12 @@ peminjaman::peminjaman()
 			}
 			
 			case 'M': {
-				peminjaman::kembali();
+				
 				break;
 			}
 			
 			case 'K': {
-				
+				peminjaman::kembali();
 				break;
 			}
 			
@@ -66,8 +66,8 @@ peminjaman::~peminjaman()
 
 void peminjaman::pinjam()
 {
-	char * id, * nim;
-	int n, x;
+	char * id, * nim, * str;
+	int x, second;
 	time_t rawtime;
 	struct tm * timeinfo;
 	
@@ -77,10 +77,11 @@ void peminjaman::pinjam()
 		nim = new char[7];
 		cout << "Masukan NIM Mahasiswa: ";
 		gets(nim);
-		if (strlen(nim) == 6)
+		if (strlen(nim) == (NIM-1))
 		{
 			x = peminjaman::carinim(nim);	
 			if (x != 1) cout << nim << " tidak ditemukan." <<endl;
+			getch();
 		}
 		else 
 		{
@@ -89,7 +90,7 @@ void peminjaman::pinjam()
 		}
 		
 	} while (x != 1);
-	
+	getch();
 // cek ID
 	do {
 		x = 0;
@@ -103,7 +104,7 @@ void peminjaman::pinjam()
 			cout << "ID salah." << endl;
 			x = 0;
 		}
-		x = peminjaman::cariid(id);
+		else x = peminjaman::cariid(id);
 		if (x != 2) delete[] id;
 		if (x == -1){cout << "buku telah dipinjam"; getch();}
 	} while (x != 2);
@@ -113,7 +114,7 @@ void peminjaman::pinjam()
 
 	str = new char[16];
 
-	sprintf(str, "%02i/%02i/%02i %-6s x\0", timeinfo->tm_mday, timeinfo->tm_mon, (timeinfo->tm_year)%100, nim);
+	sprintf(str, "%02i/%02i/%02i %-6s x", timeinfo->tm_mday, timeinfo->tm_mon, (timeinfo->tm_year)%100, nim);
 //	cout << temp;
 	
 //	cout <<num;getch();
@@ -127,7 +128,7 @@ void peminjaman::pinjam()
 void peminjaman::kembali()
 {
 	char * id;
-	int n, x;
+	int n, x, second;
 	
 // cek ID
 	do {
@@ -137,12 +138,16 @@ void peminjaman::kembali()
 		cout << "Masukan ID Buku: ";
 		gets(id);
 		
-		if (strlen(id) != 4)
+		if (strlen(id) == 4)
 		{
-			cout << "ID salah." << endl;
-			x = 0;
+			x = peminjaman::cariid(id);
+			if (x == -1) cout << "triggered" << endl;
+			else if (x == 2){cout << "Buku Belum Dipinjam"; getch();}
+			
+			else if (x == 0){cout << "ID salah." << endl; getch();}
+			
 		}
-		x = peminjaman::cariid(id);
+		else x = 0;
 		if (x != -1) delete[] id;
 	} while (x != -1);
 	n = 0;
@@ -150,18 +155,25 @@ void peminjaman::kembali()
 	n += (id[1] - '0')*100;
 	n += (id[2] - '0')*10;
 	n += (id[3] - '0');
-	cout << n; getch();
+//	cout << n; getch();
 // ganti data di book.txt
-	peminjaman::ganti_data("book.txt", n, 61, "--/--/-- 000000 *");
+	str1 = new char[MAX_BUKU];
+	str1 = spesifik_data("book.txt", n);
+	if (cek_over(str, &second) == 1)
+	{
+		cout << "Buku telah Overdue, Silahkan Memilih Menu Overdue."; getch();
+	}
+	else
+		peminjaman::ganti_data("book.txt", n, 61, "--/--/-- 000000 *");
 	delete[] id;
+	delete[] str1;
 }
 
 int peminjaman::carinim(char * dat)
 {
 // file buffer
 	FILE * file;
-	char * data, temp, * nim;
-	int x = 0;
+	char * data, * nim;
 
 // definisi
 	file = FileOpen("student.txt");
@@ -175,7 +187,7 @@ int peminjaman::carinim(char * dat)
 		strncpy(nim, data, 6);
 		
 		nim[6] = '\0';
-		
+		cout << nim << ' ' << dat << endl;
 		if (strcmp(nim, dat) == 0)
 		{
 			delete[] data;
@@ -193,7 +205,9 @@ int peminjaman::carinim(char * dat)
 }
 
 
-
+// 0 = gk cocok
+// 2 = cocok belum dipinjam
+// -1 = cocok dipinjam
 int peminjaman::cariid(char * dat)
 {
 // file buffer
@@ -241,21 +255,19 @@ int peminjaman::cek_over(char * buku, int * second)
 	n.tm_mon = month; 
 	n.tm_year = year;
 	
-	* second = difftime(now, mktime(&n))/86400;
+	*second = difftime(now, mktime(&n))/86400;
 	
 	//cout << day << month << year << endl;
 	
-	if(* second>21) return 1;
+	if(*second>21) return 1;
 	else return -1;
 }
+
 void peminjaman::lihat_overdue()
 {
    FILE * pFile;
    char * buku;
-   time_t now;
-   now = time(NULL);
    int second;
-   int denda;
    //struct tm n = *localtime(&now);    
 	system("cls");
 	kop_over();
@@ -275,13 +287,11 @@ void peminjaman::lihat_overdue()
 			cout << buku[i];
 			i++;
 		}
-		
-		
-		denda = second*3000;
-		cout << "	";
-		if (strlen(buku)!=0)
-		cout << second << setw(10) << " Hari"<< denda <<" Rupiah" << endl;
-		delete[] buku;
+
+	cout << "	";
+	if (strlen(buku)!=0)
+	cout << second << "Hari"<< endl;
+	delete[] buku;
 	}
 	}
 	fclose(pFile);
@@ -332,3 +342,4 @@ void peminjaman::ganti_data(char * namafile, int num, int start, char * str)
 	rename("temp", namafile);
 	
 }
+
