@@ -330,6 +330,7 @@ void peminjaman::ganti_data(char * namafile, int num, int start, char * str)
 			
 			for (int j = 0; j < strlen(baca); j++)
 			{
+				cout << str[j-start] << " " << baca[j] << endl;
 				if (j >= start && j < (start + strlen(str)))
 					x = str[j-start];
 				else
@@ -347,7 +348,7 @@ void peminjaman::ganti_data(char * namafile, int num, int start, char * str)
 		
 		delete[] baca;
 	}
-	getch();
+//	getch();
 	fclose(awal);
 	fclose(akhir);
 	remove(namafile);
@@ -357,7 +358,7 @@ void peminjaman::ganti_data(char * namafile, int num, int start, char * str)
 
 void peminjaman::tagih_mahasiswa()
 {
-	int x;
+	int x = 0;
 	FILE * file;
 	int a = 0;
 	char * nim, * data, * tempnim;
@@ -373,19 +374,20 @@ void peminjaman::tagih_mahasiswa()
 		fgets(data, 100, file);
 		tempnim = new char[NIM];
 		a = 0;
-		for (int i = 79; i < 84; i++)
+		for (int i = 70; i < 76; i++)
 		{
-			tempnim[i-79] = data[i];
+			tempnim[i-70] = data[i];
 		}
-//		cout << tempnim << ' ' << nim;
+//		cout << tempnim << ' ' << nim << endl;
 		x++;
 		if (strcmp(tempnim,nim) == 0)
 		{
+			
 			peminjaman::ganti_data("book.txt", x, 61, "--/--/-- 000000 *");
-			cout << "NIM Mahasiswa: " << nim << endl;
+//			cout << "NIM Mahasiswa: " << nim << endl;
 			for(int i = 0; i < 30; i++) cout << data[i];
-			if ((a-21) > 0)	cout << ' ' << setw(5) << a << " hari " << (a-21)*3000 << "rupiah";
-			else cout << ' ' << setw(5) << a << " hari " << "0" << "rupiah";
+			if ((a-21) > 0)	cout << ' ' << setw(5) << a << " hari " << (a-21)*3000 << "rupiah" << endl;
+			else cout << ' ' << setw(5) << a << " hari " << "0" << " rupiah" << endl;
 		}
 		
 	}
