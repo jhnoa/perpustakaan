@@ -26,7 +26,7 @@ int main() {
 		switch(x = toupper(getch())) {
 			
 			case 'M': { // goto class menu.
-				convert_student();
+				//convert_student();
 				murid mur;
 				mur.~murid();
 				break;

@@ -72,5 +72,5 @@ void kop_tagih_murid();
 int auto_numbering();
 char * spesifik_data(char *, int);
 void convert_student();
-char * pick_data(char *, int, int);
+void sorting(char * str, int size);
 #endif

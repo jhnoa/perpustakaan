@@ -80,8 +80,7 @@ void peminjaman::pinjam()
 		if (strlen(nim) == (NIM-1))
 		{
 			x = peminjaman::carinim(nim);	
-			if (x != 1) cout << nim << " tidak ditemukan." <<endl;
-			getch();
+			if (x != 1) {cout << nim << " tidak ditemukan." <<endl; getch();}
 		}
 		else 
 		{
@@ -90,7 +89,7 @@ void peminjaman::pinjam()
 		}
 		
 	} while (x != 1);
-	getch();
+//	getch();
 // cek ID
 	do {
 		x = 0;
@@ -112,12 +111,6 @@ void peminjaman::pinjam()
 	time ( &rawtime );
 	timeinfo = localtime ( &rawtime );
 	
-	n = 0;
-	n += (id[0] - '0')*1000;
-	n += (id[1] - '0')*100;
-	n += (id[2] - '0')*10;
-	n += (id[3] - '0');
-	
 	str = new char[16];
 
 	sprintf(str, "%02i/%02i/%02i %-6s x", timeinfo->tm_mday, timeinfo->tm_mon +  1, (timeinfo->tm_year)%100, nim);
@@ -134,6 +127,7 @@ void peminjaman::pinjam()
 
 void peminjaman::kembali()
 {
+	FILE * file;
 	char * id;
 	int n, x, second;
 	
@@ -148,8 +142,8 @@ void peminjaman::kembali()
 		if (strlen(id) == 4)
 		{
 			x = peminjaman::cariid(id);
-			if (x == -1) cout << "triggered" << endl;
-			else if (x == 2){cout << "Buku Belum Dipinjam"; getch();}
+//			if (x == -1) cout << "triggered" << endl;
+			if (x == 2){cout << "Buku Belum Dipinjam"; getch();}
 			
 			else if (x == 0){cout << "ID salah." << endl; getch();}
 			
@@ -165,8 +159,15 @@ void peminjaman::kembali()
 //	cout << n; getch();
 // ganti data di book.txt
 	str1 = new char[MAX_BUKU];
-	str1 = spesifik_data("book.txt", n);
-	if (cek_over(str, &second) == 1)
+	file = FileOpen("book.txt");
+	for (int i = 0; i < n; i++)
+	{
+		delete[] str1;
+		str1 = new char[MAX_BUKU];
+		fgets(str1,100,file);
+	}
+	fclose(file);
+	if (cek_over(str1, &second) == 1)
 	{
 		cout << "Buku telah Overdue, Silahkan Memilih Menu Overdue."; getch();
 	}
@@ -194,7 +195,7 @@ int peminjaman::carinim(char * dat)
 		strncpy(nim, data, 6);
 		
 		nim[6] = '\0';
-		cout << nim << ' ' << dat << endl;
+//		cout << nim << ' ' << dat << endl;
 		if (strcmp(nim, dat) == 0)
 		{
 			delete[] data;
@@ -307,7 +308,7 @@ void peminjaman::lihat_overdue()
 void peminjaman::ganti_data(char * namafile, int num, int start, char * str)
 {
 	char x;
-	cout << str << endl;
+//	cout << str << endl;
 	FILE * awal, * akhir;
 	awal = FileOpen(namafile);
 	akhir = FileOpen("temp");
@@ -330,13 +331,13 @@ void peminjaman::ganti_data(char * namafile, int num, int start, char * str)
 				else
 					x = baca[j];
 				fputc(x, akhir);
-				cout << x << endl;
+//				cout << x << endl;
 				/*
 				baca[j] = str[j-start];
 				cout << baca[j] << ' ' << str[j-start] << endl;
 				*/
 			}
-			cout << baca;
+//			cout << baca;
 			//fputs(baca, akhir);
 		}
 		
@@ -372,20 +373,22 @@ void peminjaman::tagih_mahasiswa()
 		{
 			tempnim[i-79] = data[i];
 		}
+//		cout << tempnim << ' ' << nim;
 		x++;
 		if (strcmp(tempnim,nim) == 0)
 		{
+			peminjaman::ganti_data("book.txt", x, 61, "--/--/-- 000000 *");
+			cout << "NIM Mahasiswa: " << nim << endl;
+			for(int i = 0; i < 30; i++) cout << data[i];
 			if (cek_over(data, &a) == 1)
 			{
-				peminjaman::ganti_data("book.txt", x, 61, "--/--/-- 000000 *");
-				cout << "NIM Mahasiswa: " << nim << endl;
-				cout << setw(31) << pick_data(data, 0, 30) << setw(5) << a << " hari " << a*3000 << "rupiah";
-			
+				cout << ' ' << setw(5) << a - 21 << " hari " << (a-21)*3000 << "rupiah";
 			}
 			
 		}
 		
 	}
+	getch();
 	fclose(file);
 }
 void peminjaman::tagih_buku()
@@ -457,8 +460,8 @@ system("cls");
 						{
 							cout << buku[a];
 						}
-						cout << endl << "Terlambat " << second << " Hari" << endl 
-							 << "Tagihan :" << second*3000 << " Rupiah" << endl;
+						cout << endl << "Terlambat " << second - 21 << " Hari" << endl 
+							 << "Tagihan :" << (second-21)*3000 << " Rupiah" << endl;
 						x = 1;
 						break;
 					}

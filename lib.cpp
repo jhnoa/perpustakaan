@@ -10,7 +10,7 @@ FILE * FileOpen (const char *Filename)
 	}
 	else
 	{
-		cout << "File " << Filename << " dibuka." << endl;
+//		cout << "File " << Filename << " dibuka." << endl;
 	}
 	
 	fseek(le,0,SEEK_SET);
@@ -77,19 +77,19 @@ int auto_numbering()
 	return num;
 }
 
-char * spesifik_data(char * str, int num)
+char * spesifik_data(char * str, int num, int size)
 {
 	FILE * file;
-//	char data[];
+	char * data;
 	file = FileOpen(str);
 	for (int i = 1; i <= num || !feof(file); i++)
 	{
-//		data = new char[MAX_BUKU];
-//		fgets(data, 100, file);
-//		if(i != num) delete[] data;
+		data = new char[size];
+		fgets(data, 100, file);
+		if(i != num) delete[] data;
 	}
 	fclose(file);
-//	return data;
+	return data;
 	
 }
 
@@ -99,7 +99,7 @@ void convert_student() {
 	char *temp;
 	char *buffer;
 	int initial, finale, selisih;
-	temp = new char[80];
+	temp = new char[MAX_MURID];
 	
 	//rename
 	rename("student.txt","student1.txt");
@@ -122,7 +122,7 @@ void convert_student() {
 			
 			initial = 0;
 			finale = 0;
-			fgets(temp, 80, student);
+			fgets(temp, 100, student);
 			if(temp[strlen(temp)-1]=='\n') temp[strlen(temp)-1]='\0';
 			//check the every line
 			
@@ -227,12 +227,35 @@ void convert_student() {
 	
 	
 }
-char * pick_data(char * data, int start, int stop)
+
+void sorting(char * str, int size)
 {
-	char str[stop-start];
-	for (int i = start; i <= stop; i++)
+	
+	FILE * file, * nfile;
+	file = FileOpen(str);
+	int z = (sizeof(file) + 2) / size;
+	char name[z][size];
+	for (int i = 0; i < z; i++)
 	{
-		str[i-start] = data[i];
+		fgets(name[i], 100, file);
 	}
-	return str;
+	
+	sort(name[0],name[z]);
+	
+	for(int y = 0; y < z; y++)
+	{
+		cout << name[z] << endl;
+	}
+	
+	nfile = FileOpen("t");
+	for (int i = 0; i < z; i++)
+	{
+		fputs(name[i], nfile);
+	}
+	
+	fclose(nfile);
+	fclose(file);
+	remove(str);
+	rename("t",str);
+	
 }

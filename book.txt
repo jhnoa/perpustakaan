@@ -1,5 +1,5 @@
-C++ For Dummies                Grufton Stanford          3   20/05/15 456789 x 0001
-Tutorial C++                   cplusplus.com             3   20/05/15 456789 x 0002
-Readme                         My Team                   1   20/05/15 456789 x 0003
-Osu!                           ppy                       1   20/05/15 456789 x 0004
+C++ For Dummies                Grufton Stanford          3   --/--/-- 000000 * 0001
+Tutorial C++                   cplusplus.com             3   12/12/12 456789 x 0002
+Readme                         My Team                   1   --/--/-- 000000 * 0003
+Osu!                           ppy                       1   --/--/-- 000000 * 0004
 I. Ketut Wiryajati             I. Ketut Wiryajati        1   --/--/-- 000000 * 0005
