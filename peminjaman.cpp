@@ -110,9 +110,13 @@ void peminjaman::pinjam()
 // cek tanggal sekarang
 	time ( &rawtime );
 	timeinfo = localtime ( &rawtime );
-	
+	n = 0;
+	n += (id[0] - '0')*1000;
+	n += (id[1] - '0')*100;
+	n += (id[2] - '0')*10;
+	n += (id[3] - '0');
 	str = new char[16];
-
+	
 	sprintf(str, "%02i/%02i/%02i %-6s x", timeinfo->tm_mday, timeinfo->tm_mon +  1, (timeinfo->tm_year)%100, nim);
 //	cout << temp;
 	
