@@ -80,8 +80,7 @@ void murid::semua(int mode)
 {
 // buffer file
 	FILE * siswa; 
-	char *line, temp;
-	int n;
+	char *line;
 	
 // clear screen
 	system("cls");

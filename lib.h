@@ -70,4 +70,5 @@ void kop_tabel_murid();
 void kop_over();
 int auto_numbering();
 char * spesifik_data(char *, int);
+void convert_student();
 #endif

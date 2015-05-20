@@ -6,7 +6,7 @@
 
 int main() {
 // var	
-	int k;
+
 	char x = '\0';
 //	initialize();
 // main	
@@ -26,7 +26,7 @@ int main() {
 		switch(x = toupper(getch())) {
 			
 			case 'M': { // goto class menu.
-				
+				convert_student();
 				murid mur;
 				mur.~murid();
 				break;

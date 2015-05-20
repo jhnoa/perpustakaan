@@ -68,8 +68,7 @@ buku::~buku()
 
 void buku::semua(int mode)
 {
-	int n = 0, tr = 0;
-	char temp; 
+	int tr = 0; 
 
 // buffer file
 	FILE * siswa; 
@@ -249,9 +248,9 @@ void buku::t_buku()
 	buku = new char[87];
 	
 	if (sizeof(file) != 0)
-	sprintf(buku, "\n%-30s %-25s %-3s --/--/-- 000000 * %04i\0", judul, pengarang, edisi, num);
+	sprintf(buku, "\n%-30s %-25s %-3s --/--/-- 000000 * %04i", judul, pengarang, edisi, num);
 	else
-	sprintf(buku, "%-30s %-25s %-3s --/--/-- 000000 * %04i\0", judul, pengarang, edisi, num);
+	sprintf(buku, "%-30s %-25s %-3s --/--/-- 000000 * %04i", judul, pengarang, edisi, num);
 	
 	fseek(file, 0, SEEK_END);
 	fputs(buku, file);
