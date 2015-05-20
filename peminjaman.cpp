@@ -37,7 +37,7 @@ peminjaman::peminjaman()
 			}
 			
 			case 'T': {
-				
+				peminjaman::tagih_buku();
 				break;
 			}
 			
@@ -348,5 +348,115 @@ void peminjaman::ganti_data(char * namafile, int num, int start, char * str)
 	remove(namafile);
 	rename("temp", namafile);
 	
+}
+
+void peminjaman::tagih_buku()
+{
+
+FILE * pFile;   
+
+char buku[100];
+ 
+int n;
+char idbukua[4];
+char * idbukub;
+time_t now;
+now = time(NULL);
+int second;
+int x;
+
+system("cls");
+
+	cout << "Masukan ID buku :";
+	gets(idbukua);
+	if(strlen(idbukua) > 4)
+	{
+		cout << "ID buku lebih dari 4 digit. Ulangi." << endl;
+	}
+	else
+	{
+		pFile = fopen ("book.txt" , "r");
+		
+		do {
+			
+			fgets(buku , 100 , pFile);
+			idbukub = new char[4];
+			for (int i = 0; i < 4; i++)
+			{
+				idbukub[i]=buku[i+79];
+			}	
+			if(strcmp(idbukua, idbukub) == 0)
+			{
+				
+				if(buku[61] == '-')
+				{
+					int a = 0;
+					while(a<30)
+					{
+						cout << buku[a];
+						a++;
+					}
+					cout << "Buku belum di pinjam" << endl;
+					x = 0;
+					break;
+				}
+				else
+				{
+					int day = (buku[61]-'0')*10 + (buku[62]-'0');
+	    			int month = ((buku[64]-'0')*10 + (buku[65]-'0'))-1;
+					int year = ((buku[67]-'0')*10 + (buku[68]-'0'))+100;
+					
+					struct tm n = *localtime(&now);
+					n.tm_mday = day; 
+					n.tm_mon = month; 
+					n.tm_year = year;
+			
+					second = difftime(now, mktime(&n))/86400;
+					
+					if(second>21)
+					{
+						for(int a = 0; a < 30; a++)
+						{
+							cout << buku[a];
+						}
+						cout << endl << "Terlambat " << second << " Hari" << endl 
+							 << "Tagihan :" << second*3000 << " Rupiah" << endl;
+						x = 1;
+						break;
+					}
+					else 
+					{
+						for (int a = 0; a<30; a++)
+						{
+							cout << buku[a];
+						}
+						cout << "	" << "Sudah dipinjam selama " << second << " hari" << endl
+							 << "Tidak ada denda.";
+						 x = 1;
+						 break;
+					}
+				}
+			}
+			else x = -1;
+			
+			delete[] idbukub;
+		} while(!feof(pFile));
+		fclose(pFile);
+		if (x == -1)
+		{
+			cout << "ID buku tidak ada yang sama dengan ID buku dalam perpustakaan" << endl;
+		}
+			
+	}
+	if(x==1)
+	{
+		n = 0;
+		n += (idbukub[0] - '0')*1000;
+		n += (idbukub[1] - '0')*100;
+		n += (idbukub[2] - '0')*10;
+		n += (idbukub[3] - '0');
+		peminjaman::ganti_data("book.txt", n, 61, "--/--/-- 000000 *");
+	}
+	getch();
 }
 
